@@ -45,17 +45,28 @@ public class InputParser {
         assert (0 < lines.length) : "The input file had no data in it";
         InputBOM inputBOM;
         for(String line : lines) {
-            String[] cells = line.trim().split(DATA_SEPARATOR); //remove white space from the beginning and from the end and splic the data cells in a row
-            assert (cells.length == NUMBER_OF_DATA_IN_A_ROW) : "There is/are " + cells.length + " data cells instead of the expected " + NUMBER_OF_DATA_IN_A_ROW;
-            double priceOfCookieFarm = Double.parseDouble(cells[0].trim());
-            double cookieFarmProductionRate = Double.parseDouble(cells[1].trim());
-            double numberOfCookiesNeededToEndTheGame = Double.parseDouble(cells[2].trim());
-            //TODO: checking the limits and ExpectedOutputFormat.MAX_FRACTIONAL_PART for the fractional part length if needed
-            //      Small dataset 1 ? C ? 500; 1 ? F ? 4; 1 ? X ? 2000 
-            //      Large dataset 1 ? C ? 10000; 1 ? F ? 100; 1 ? X ? 100000 
-            inputBOM = new InputBOM(priceOfCookieFarm, cookieFarmProductionRate, numberOfCookiesNeededToEndTheGame);
+            inputBOM = parseLine(line);
             inputBOMs.add(inputBOM);
         }
         return inputBOMs;
+    }
+    
+    /**
+     * This method knows what to expect as the input format and how to parse a single input row and return it as a business object model
+     * 
+     * @param inputLine
+     * @return 
+     * @throws AssertionError (is enabled in the project as VM option -enableassertions)
+     */
+    public static InputBOM parseLine(String inputLine) throws AssertionError {
+        String[] cells = inputLine.trim().split(DATA_SEPARATOR); //remove white space from the beginning and from the end and splic the data cells in a row
+        assert (cells.length == NUMBER_OF_DATA_IN_A_ROW) : "There is/are " + cells.length + " data cells instead of the expected " + NUMBER_OF_DATA_IN_A_ROW;
+        double priceOfCookieFarm = Double.parseDouble(cells[0].trim());
+        double cookieFarmProductionRate = Double.parseDouble(cells[1].trim());
+        double numberOfCookiesNeededToEndTheGame = Double.parseDouble(cells[2].trim());
+        //TODO: checking the limits and ExpectedOutputFormat.MAX_FRACTIONAL_PART for the fractional part length if needed
+        //      Small dataset 1 ? C ? 500; 1 ? F ? 4; 1 ? X ? 2000 
+        //      Large dataset 1 ? C ? 10000; 1 ? F ? 100; 1 ? X ? 100000 
+        return new InputBOM(priceOfCookieFarm, cookieFarmProductionRate, numberOfCookiesNeededToEndTheGame, inputLine);
     }
 }

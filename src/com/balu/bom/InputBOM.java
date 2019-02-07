@@ -15,6 +15,10 @@ public class InputBOM {
      */
     public static final double STARTING_AMOUNT_OF_COOKIES = 0d;
     /**
+     * The expected data separator of the input format
+     */
+    private static final String DATA_SEPARATOR = ExpectedOutputFormat.DATA_SEPARATOR;
+    /**
      * How many cookie a farm is going to cost to be built
      */
     private final double priceOfCookieFarm;
@@ -26,6 +30,10 @@ public class InputBOM {
      * How many cookies are needed to end the game successfully 
      */
     private final double numberOfCookiesNeededToEndTheGame;
+    /**
+     * To keep the original number formats, because while parsing the input lines, some inputs have different fractional length
+     */
+    private final String originalDataLineStrFromInput;
 
     /**
      * Constructor for setting the input fields.
@@ -33,13 +41,31 @@ public class InputBOM {
      * @param priceOfCookieFarm
      * @param cookieFarmProductionRate
      * @param numberOfCookiesNeededToEndTheGame 
+     * @deprecated creating the original data line input string from these doubles have a good chance of loosing the original fracitonal lengths
      */
+    @Deprecated
     public InputBOM(double priceOfCookieFarm, double cookieFarmProductionRate, double numberOfCookiesNeededToEndTheGame) {
         this.priceOfCookieFarm = priceOfCookieFarm;
         this.cookieFarmProductionRate = cookieFarmProductionRate;
         this.numberOfCookiesNeededToEndTheGame = numberOfCookiesNeededToEndTheGame;
+        this.originalDataLineStrFromInput = Double.toString(priceOfCookieFarm) + DATA_SEPARATOR + Double.toString(cookieFarmProductionRate) + DATA_SEPARATOR + Double.toString(numberOfCookiesNeededToEndTheGame);
     }
-
+    
+    /**
+     * Constructor for setting the input fields.
+     * 
+     * @param priceOfCookieFarm
+     * @param cookieFarmProductionRate
+     * @param numberOfCookiesNeededToEndTheGame 
+     * @param originalDataLineStrFromInput the original data line string from the input keeping the original fractional lengths
+     */
+    public InputBOM(double priceOfCookieFarm, double cookieFarmProductionRate, double numberOfCookiesNeededToEndTheGame, String originalDataLineStrFromInput) {
+        this.priceOfCookieFarm = priceOfCookieFarm;
+        this.cookieFarmProductionRate = cookieFarmProductionRate;
+        this.numberOfCookiesNeededToEndTheGame = numberOfCookiesNeededToEndTheGame;
+        this.originalDataLineStrFromInput = originalDataLineStrFromInput;
+    }
+    
     public double getPriceOfCookieFarm() {
         return priceOfCookieFarm;
     }
@@ -77,6 +103,10 @@ public class InputBOM {
      */
     public double getX() {
         return getNumberOfCookiesNeededToEndTheGame();
+    }
+
+    public String getOriginalDataLineStrFromInput() {
+        return originalDataLineStrFromInput;
     }
 
     @Override

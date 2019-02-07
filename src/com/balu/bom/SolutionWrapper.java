@@ -21,9 +21,10 @@ public class SolutionWrapper extends InputBOM implements ExpectedOutputFormat {
      * @param cookieFarmProductionRate
      * @param numberOfCookiesNeededToEndTheGame
      * @param minimumNumberOFSecondsNeededToEndTheGame it will be maximal of ExpectedOutputFormat.MAX_FRACTIONAL_PART digits after the decimal point, the rest will be trimmed if there is any
+     * @param originalDataLineStrFromInput
      */
-    public SolutionWrapper(double priceOfCookieFarm, double cookieFarmProductionRate, double numberOfCookiesNeededToEndTheGame, double minimumNumberOFSecondsNeededToEndTheGame) {
-        super(priceOfCookieFarm, cookieFarmProductionRate, numberOfCookiesNeededToEndTheGame);
+    public SolutionWrapper(double priceOfCookieFarm, double cookieFarmProductionRate, double numberOfCookiesNeededToEndTheGame, double minimumNumberOFSecondsNeededToEndTheGame, String originalDataLineStrFromInput) {
+        super(priceOfCookieFarm, cookieFarmProductionRate, numberOfCookiesNeededToEndTheGame, originalDataLineStrFromInput);
         setMinimumNumberOFSecondsNeededToEndTheGame(minimumNumberOFSecondsNeededToEndTheGame);
     }
     
@@ -34,7 +35,7 @@ public class SolutionWrapper extends InputBOM implements ExpectedOutputFormat {
      * @param minimumNumberOFSecondsNeededToEndTheGame 
      */
     public SolutionWrapper(InputBOM inputBOM, double minimumNumberOFSecondsNeededToEndTheGame) {
-        this(inputBOM.getPriceOfCookieFarm(), inputBOM.getCookieFarmProductionRate(), inputBOM.getNumberOfCookiesNeededToEndTheGame(), minimumNumberOFSecondsNeededToEndTheGame);
+        this(inputBOM.getPriceOfCookieFarm(), inputBOM.getCookieFarmProductionRate(), inputBOM.getNumberOfCookiesNeededToEndTheGame(), minimumNumberOFSecondsNeededToEndTheGame, inputBOM.getOriginalDataLineStrFromInput());
     }
 
     public double getMinimumNumberOFSecondsNeededToEndTheGame() {
@@ -59,6 +60,6 @@ public class SolutionWrapper extends InputBOM implements ExpectedOutputFormat {
     
     @Override
     public String toExpectedOutputFormat() {
-        return getC() + DATA_SEPARATOR + getF() + DATA_SEPARATOR + getX() + DATA_SEPARATOR + getMinimumNumberOFSecondsNeededToEndTheGame();
+        return getOriginalDataLineStrFromInput() + DATA_SEPARATOR + getMinimumNumberOFSecondsNeededToEndTheGame();
     }
 }
