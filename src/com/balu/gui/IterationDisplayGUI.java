@@ -21,7 +21,7 @@ public class IterationDisplayGUI extends javax.swing.JFrame {
     /**
      * This is the loading gif animation file in the resources folder.
      */
-    private static final String LOADING_GIF_ANIMATION_FILENAME = "resources/ajax-loader.gif";
+    private static final String LOADING_GIF_ANIMATION_FILENAME = "ajax-loader.gif";
     /**
      * We store the loading indicator window in this field when we display it, so that we can dispose it when it is not needed any longer
      */
@@ -35,7 +35,9 @@ public class IterationDisplayGUI extends javax.swing.JFrame {
             return;
         }
         loadingIndicatorWindow = new javax.swing.JFrame(LOADING_INDICATOR_TITLE);
-        javax.swing.ImageIcon loading = new javax.swing.ImageIcon(LOADING_GIF_ANIMATION_FILENAME);
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        java.net.URL inputAnimationFileURL = classLoader.getResource(LOADING_GIF_ANIMATION_FILENAME); //it both works from NetBeans IDE to load resource file from the resources folder and while executing the jar file, the resources are copied into the topmost folder within the jar (the resources folder has been added in the project properties)
+        javax.swing.ImageIcon loading = new javax.swing.ImageIcon(inputAnimationFileURL);
         loadingIndicatorWindow.add(new javax.swing.JLabel(LOADING_TEXT, loading, javax.swing.JLabel.CENTER));
         loadingIndicatorWindow.setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
         loadingIndicatorWindow.setSize(400, 300);

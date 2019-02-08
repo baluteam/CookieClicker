@@ -44,11 +44,11 @@ public class FileIO extends JPanel {
     /**
      * Folder name where we have the input data
      */
-    private static final String RESOURCES_FOLDER = "resources"; //the current folder where the executable jar file is running from
+    private static final String RESOURCES_FOLDER = "resources"; //the current folder where the executable jar file is running from in NetBeans IDE and where the resources are located at
     /**
      * Folder name where we store our solution as an output data
      */
-    private static final String OUTPUT_FOLDER = "resources"; //the current folder where the executable jar file is running from
+    private static final String OUTPUT_FOLDER = "resources"; //the current folder where the executable jar file is running from in NetBeans IDE and where the resources are located at
     /**
      * Prefix of the output file
      */
