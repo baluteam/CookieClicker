@@ -24,7 +24,9 @@ public class Main {
         catch(AssertionError e) {
             fileIO.displayError(e.getMessage());
         }
+        IterationDisplayGUI.displayLoadingIndicator();
         List<SolutionWrapper> result = Algorithm.calculate(inputBOMs);
+        IterationDisplayGUI.hideLoadingIndicator();
         fileIO.saveSolution(result);
         IterationDisplayGUI iterationDisplayGUI = new IterationDisplayGUI();
         iterationDisplayGUI.setText(Algorithm.getIterationLog());

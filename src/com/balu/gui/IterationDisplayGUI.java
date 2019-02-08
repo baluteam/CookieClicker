@@ -10,6 +10,48 @@ package com.balu.gui;
  * @author Balu_ADMIN
  */
 public class IterationDisplayGUI extends javax.swing.JFrame {
+    /**
+     * Title of the loading indicator window
+     */
+    private static final String LOADING_INDICATOR_TITLE = "Calcualtion in progress...";
+    /**
+     * The label in the loading indicator window
+     */
+    private static final String LOADING_TEXT = "Loading...";
+    /**
+     * This is the loading gif animation file in the resources folder.
+     */
+    private static final String LOADING_GIF_ANIMATION_FILENAME = "resources/ajax-loader.gif";
+    /**
+     * We store the loading indicator window in this field when we display it, so that we can dispose it when it is not needed any longer
+     */
+    private static javax.swing.JFrame loadingIndicatorWindow;
+    /**
+     * Creates if needed and displays the loading indicator window
+     */
+    public static void displayLoadingIndicator() {
+        if(loadingIndicatorWindow != null) {
+            loadingIndicatorWindow.setVisible(true);
+            return;
+        }
+        loadingIndicatorWindow = new javax.swing.JFrame(LOADING_INDICATOR_TITLE);
+        javax.swing.ImageIcon loading = new javax.swing.ImageIcon(LOADING_GIF_ANIMATION_FILENAME);
+        loadingIndicatorWindow.add(new javax.swing.JLabel(LOADING_TEXT, loading, javax.swing.JLabel.CENTER));
+        loadingIndicatorWindow.setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
+        loadingIndicatorWindow.setSize(400, 300);
+        loadingIndicatorWindow.setLocationRelativeTo(null); //position should be in the center
+        loadingIndicatorWindow.setVisible(true);
+    }
+    /**
+     * Hides and disposes te loading indicator window.
+     */
+    public static void hideLoadingIndicator() {
+        if(loadingIndicatorWindow != null) {
+            loadingIndicatorWindow.setVisible(false);
+            loadingIndicatorWindow.dispose();
+            loadingIndicatorWindow = null;
+        }
+    }
 
     /**
      * Creates new form IterationDisplayGUI
